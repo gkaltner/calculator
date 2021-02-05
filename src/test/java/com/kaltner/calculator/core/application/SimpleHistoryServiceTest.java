@@ -7,6 +7,7 @@ import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
+import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.Mockito;
 import org.springframework.test.context.junit.jupiter.SpringExtension;
@@ -16,7 +17,8 @@ import java.util.List;
 @ExtendWith(SpringExtension.class)
 class SimpleHistoryServiceTest {
 
-    HistoryService historyService;
+    @InjectMocks
+    SimpleHistoryService historyService;
 
     @Mock
     HistoryRepository historyRepository;
@@ -25,7 +27,6 @@ class SimpleHistoryServiceTest {
 
     @BeforeEach
     void setup() {
-        historyService = new SimpleHistoryService(historyRepository);
         history = new History(Action.ADD, 1, 1, 2);
     }
 

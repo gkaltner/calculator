@@ -1,77 +1,80 @@
 package com.kaltner.calculator.core.application;
 
+import com.kaltner.calculator.core.domain.Action;
 import com.kaltner.calculator.core.domain.CalculatorOperationException;
+import com.kaltner.calculator.core.domain.History;
 import org.junit.jupiter.api.Assertions;
-import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.extension.ExtendWith;
+import org.junit.jupiter.params.ParameterizedTest;
+import org.junit.jupiter.params.provider.CsvSource;
+import org.mockito.ArgumentCaptor;
+import org.mockito.Captor;
+import org.mockito.InjectMocks;
+import org.mockito.Mock;
+import org.mockito.Mockito;
+import org.springframework.test.context.junit.jupiter.SpringExtension;
 
+@ExtendWith(SpringExtension.class)
 class SimpleCalculatorTest {
 
-    Calculator calculator;
+    @Mock
+    HistoryService historyService;
 
-    @BeforeEach
-    void setup() {
-        calculator = new SimpleCalculator();
+    @InjectMocks
+    SimpleCalculator calculator;
+
+    @Captor
+    ArgumentCaptor<History> historyCaptor;
+
+    @ParameterizedTest
+    @CsvSource({"1,1,2", "-2,1,-1"})
+    void add(int operator1, int operator2, double resultExpected) {
+        final double result = calculator.add(operator1, operator2);
+
+        Assertions.assertEquals(resultExpected, result);
+        checkHistoryCall(Action.ADD, operator1, operator2, resultExpected);
     }
 
-    @Test
-    void add() {
-        final double result = calculator.add(1,1);
-        Assertions.assertEquals(2,result);
+    @ParameterizedTest
+    @CsvSource({"3,1,2", "-3,1,-4"})
+    void subtract(int operator1, int operator2, double resultExpected) {
+        final double result = calculator.subtract(operator1, operator2);
+        Assertions.assertEquals(resultExpected, result);
+        checkHistoryCall(Action.SUBTRACT, operator1, operator2, resultExpected);
     }
 
-    @Test
-    void addWhenAnOperatorIsNegative() {
-        final double result = calculator.add(-2,1);
-        Assertions.assertEquals(-1,result);
+    @ParameterizedTest
+    @CsvSource({"2,3,6", "0,3,0", "-1,3,-3"})
+    void multiplyWhen(int operator1, int operator2, double resultExpected) {
+        final double result = calculator.multiply(operator1, operator2);
+
+        Assertions.assertEquals(resultExpected, result);
+        checkHistoryCall(Action.MULTIPLY, operator1, operator2, resultExpected);
     }
 
-    @Test
-    void subtract() {
-        final double result = calculator.subtract(3,1);
-        Assertions.assertEquals(2,result);
-    }
+    @ParameterizedTest
+    @CsvSource({"4,2,2", "0,2,0", "-1,4,-0.25"})
+    void divide(int operator1, int operator2, double resultExpected) {
+        final double result = calculator.divide(operator1, operator2);
 
-    @Test
-    void subtractWhenAnOperatorIsNegative() {
-        final double result = calculator.subtract(-3,1);
-        Assertions.assertEquals(-4,result);
-    }
-
-    @Test
-    void multiplyWhen() {
-        final double result = calculator.multiply(2,3);
-        Assertions.assertEquals(6,result);
-    }
-
-    @Test
-    void multiplyWhenAnOperatorIsZero() {
-        final double result = calculator.multiply(0,3);
-        Assertions.assertEquals(0,result);
-    }
-
-    @Test
-    void multiplyWhenAnOperatorIsNegative() {
-        final double result = calculator.multiply(-1,3);
-        Assertions.assertEquals(-3,result);
-    }
-
-    @Test
-    void divide() {
-        final double result = calculator.divide(4,2);
-        Assertions.assertEquals(2,result);
-    }
-
-    @Test
-    void divideWhenOperator1IsZero() {
-        final double result = calculator.divide(0,2);
-        Assertions.assertEquals(0,result);
+        Assertions.assertEquals(resultExpected, result);
+        checkHistoryCall(Action.DIVIDE, operator1, operator2, resultExpected);
     }
 
     @Test
     void divideWhenOperator2IsZero() {
-        Assertions.assertThrows(CalculatorOperationException.class,() -> {
-            calculator.divide(0,0);
-        });
+        Assertions.assertThrows(CalculatorOperationException.class,
+                () -> calculator.divide(0, 0));
+        checkHistoryCall(Action.DIVIDE, 0, 0, Double.NaN);
+    }
+
+    private void checkHistoryCall(Action action, int operator1, int operator2, double resultExpected) {
+        Mockito.verify(historyService, Mockito.times(1)).save(historyCaptor.capture());
+        History history = historyCaptor.getValue();
+        Assertions.assertEquals(action, history.getAction());
+        Assertions.assertEquals(operator1, history.getOperator1());
+        Assertions.assertEquals(operator2, history.getOperator2());
+        Assertions.assertEquals(resultExpected, history.getResult());
     }
 }
