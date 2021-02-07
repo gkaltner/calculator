@@ -10,9 +10,6 @@ import org.springframework.boot.test.autoconfigure.orm.jpa.DataJpaTest;
 import org.springframework.boot.test.autoconfigure.orm.jpa.TestEntityManager;
 import org.springframework.test.context.junit.jupiter.SpringExtension;
 
-import java.awt.*;
-import java.util.Optional;
-
 @ExtendWith(SpringExtension.class)
 @DataJpaTest
 class H2HistoryRepositoryTest {
@@ -36,7 +33,6 @@ class H2HistoryRepositoryTest {
 
         entities.forEach(historyEntity -> {
             Assertions.assertNotNull(historyEntity.getId());
-            Assertions.assertNotNull(historyEntity.getTimeStamp());
             Assertions.assertEquals(1, historyEntity.getOperator1());
             Assertions.assertEquals(1, historyEntity.getOperator2());
             Assertions.assertEquals(2, historyEntity.getResult());

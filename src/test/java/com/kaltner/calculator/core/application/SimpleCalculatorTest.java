@@ -62,11 +62,12 @@ class SimpleCalculatorTest {
         checkHistoryCall(Action.DIVIDE, operator1, operator2, resultExpected);
     }
 
-    @Test
-    void divideWhenOperator2IsZero() {
+    @ParameterizedTest
+    @CsvSource({ "2,0,NaN", "0,0,NaN"})
+    void divideWhenOperator2IsZero(int operator1, int operator2, double resultExpected) {
         Assertions.assertThrows(CalculatorOperationException.class,
-                () -> calculator.divide(0, 0));
-        checkHistoryCall(Action.DIVIDE, 0, 0, Double.NaN);
+                () -> calculator.divide(operator1, operator2));
+        checkHistoryCall(Action.DIVIDE, operator1, operator2, resultExpected);
     }
 
     private void checkHistoryCall(Action action, int operator1, int operator2, double resultExpected) {

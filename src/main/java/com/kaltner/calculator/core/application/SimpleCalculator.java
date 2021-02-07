@@ -35,8 +35,13 @@ public class SimpleCalculator implements Calculator {
 
     @Override
     public double divide(int operator1, int operator2) {
-        final double result = (double) operator1 / operator2;
+        double result = (double) operator1 / operator2;
+
+        if(Double.isInfinite(result)) {
+            result = Double.NaN;
+        }
         historyService.save(new History(Action.DIVIDE, operator1, operator2, result));
+
         if (Double.isNaN(result)) {
             throw new CalculatorOperationException();
         }

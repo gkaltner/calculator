@@ -93,6 +93,25 @@ class CalculatorControllerTest {
 
     @Test
     void executeDivideOperation() throws Exception {
+        final int operator1 = 3;
+        final int operator2 = 3;
+        final double result = 1;
+
+        RequestOperation operation = new RequestOperation(Action.DIVIDE, operator1, operator2);
+
+        when(calculator.divide(operator1, operator2)).thenReturn(result);
+
+        mvc.perform(post("/calculator")
+                .contentType(APPLICATION_JSON)
+                .content(mapper.writeValueAsBytes(operation)))
+                .andExpect(status().isOk())
+                .andExpect(jsonPath("$.result", is(result)));
+
+        verify(calculator, times(1)).divide(operator1, operator2);
+    }
+
+    @Test
+    void executeFAILDivideOperation() throws Exception {
         final int operator1 = 0;
         final int operator2 = 0;
 
