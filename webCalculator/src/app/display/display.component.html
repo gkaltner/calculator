@@ -1,0 +1,7 @@
+<div class="display-container">
+  <div *ngIf="!this.action">{{currentValue}}</div>
+  <div *ngIf="this.action == 'ADD'"><fa-icon [icon]="faPlus"></fa-icon></div>
+  <div *ngIf="this.action == 'SUBTRACT'"><fa-icon [icon]="faMinus"></fa-icon></div>
+  <div *ngIf="this.action == 'MULTIPLY'"><fa-icon [icon]="faTimes"></fa-icon></div>
+  <div *ngIf="this.action == 'DIVIDE'"><fa-icon [icon]="faDivide"></fa-icon></div>
+</div>
