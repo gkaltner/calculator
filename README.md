@@ -1,6 +1,6 @@
-#Instructions
+# Instructions
 
-##Compile server
+## Compile server
 Run the following to compile the server:
 ```
 mvn clean install
