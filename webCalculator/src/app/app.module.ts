@@ -11,6 +11,7 @@ import {DisplayComponent} from './display/display.component';
 import {ButtonsComponent} from './buttons/buttons.component';
 import {MatButtonModule} from '@angular/material/button';
 import {HttpClientModule} from '@angular/common/http';
+import {MatSnackBarModule} from '@angular/material/snack-bar';
 
 @NgModule({
   declarations: [
@@ -25,6 +26,7 @@ import {HttpClientModule} from '@angular/common/http';
     MatGridListModule,
     MatListModule,
     MatButtonModule,
+    MatSnackBarModule,
     FontAwesomeModule,
     HttpClientModule
   ],

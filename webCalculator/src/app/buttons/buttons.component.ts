@@ -6,6 +6,7 @@ import {CalculatorService} from '../service/calculator.service';
 import {RequestOperation} from '../model/RequestOperation';
 import {ResponseOperation} from '../model/ResponseOperation';
 import {HistoryService} from '../service/history.service';
+import {MatSnackBar} from '@angular/material/snack-bar';
 
 @Component({
   selector: 'app-buttons',
@@ -27,7 +28,8 @@ export class ButtonsComponent implements OnInit {
 
   constructor(private displayService: DisplayService,
               private calculatorService: CalculatorService,
-              private historyService: HistoryService) {
+              private historyService: HistoryService,
+              private snackBar: MatSnackBar) {
   }
 
   ngOnInit(): void {
@@ -67,10 +69,17 @@ export class ButtonsComponent implements OnInit {
       };
       this.disabled = true;
       this.calculatorService.executeOperation(requestOperation).subscribe((response: ResponseOperation) => {
-        this.clear();
-        this.displayService.displayValue(response.result.toString());
-        this.historyService.refreshHistory();
-      });
+          this.clear();
+          this.displayService.displayValue(response.result.toString());
+          this.historyService.refreshHistory();
+        }, error => {
+          this.clear();
+          this.historyService.refreshHistory();
+          this.snackBar.open('Operaction no permited', null, {
+            duration: 2000,
+          });
+        }
+      );
     }
   }
 }
