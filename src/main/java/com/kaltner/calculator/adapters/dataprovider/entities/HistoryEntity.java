@@ -22,7 +22,7 @@ public class HistoryEntity {
     private int operator1;
     private int operator2;
     private double result;
-    private LocalDateTime timeStamp = LocalDateTime.now();
+    private LocalDateTime timeStamp;
 
     public HistoryEntity(Action action, int operator1, int operator2, int result) {
         this.action = action;
