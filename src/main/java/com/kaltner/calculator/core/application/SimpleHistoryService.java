@@ -20,6 +20,6 @@ public class SimpleHistoryService implements HistoryService {
 
     @Override
     public List<History> find() {
-        return historyRepository.find();
+        return historyRepository.findAll();
     }
 }

@@ -95,7 +95,6 @@ class CalculatorControllerTest {
     void executeDivideOperation() throws Exception {
         final int operator1 = 0;
         final int operator2 = 0;
-//        final double result = 2;
 
         RequestOperation operation = new RequestOperation(Action.DIVIDE, operator1, operator2);
 
@@ -105,7 +104,6 @@ class CalculatorControllerTest {
                 .contentType(APPLICATION_JSON)
                 .content(mapper.writeValueAsBytes(operation)))
                 .andExpect(status().isBadRequest());
-//                .andExpect(jsonPath("$.result", is(result)));
 
         verify(calculator, times(1)).divide(operator1, operator2);
     }

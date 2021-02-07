@@ -39,11 +39,11 @@ class SimpleHistoryServiceTest {
     @Test
     void find() {
         List<History> histories = List.of(history);
-        Mockito.when(historyRepository.find()).thenReturn(histories);
+        Mockito.when(historyRepository.findAll()).thenReturn(histories);
 
         List<History> result = historyService.find();
 
         Assertions.assertEquals(histories, result);
-        Mockito.verify(historyRepository, Mockito.times(1)).find();
+        Mockito.verify(historyRepository, Mockito.times(1)).findAll();
     }
 }

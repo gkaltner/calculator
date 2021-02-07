@@ -7,5 +7,5 @@ import java.util.List;
 public interface HistoryRepository {
     void save(History history);
 
-    List<History> find();
+    List<History> findAll();
 }
