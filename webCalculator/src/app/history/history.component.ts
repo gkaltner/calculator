@@ -20,7 +20,7 @@ export class HistoryComponent implements OnInit {
   }
 
   ngOnInit(): void {
-    this.historyService.historyObs.subscribe(() => {
+    this.historyService.listenHistoryEvents().subscribe(() => {
       this.fetchHistories();
     });
     this.fetchHistories();

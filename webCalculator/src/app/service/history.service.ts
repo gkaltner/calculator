@@ -1,6 +1,5 @@
 import {Injectable} from '@angular/core';
 import {Observable, Subject} from 'rxjs';
-import {ResponseOperation} from '../model/ResponseOperation';
 import {environment} from '../../environments/environment';
 import {HttpClient} from '@angular/common/http';
 import {History} from '../model/History';
@@ -11,7 +10,7 @@ import {History} from '../model/History';
 export class HistoryService {
 
   private historySource = new Subject<string>();
-  public historyObs = this.historySource.asObservable();
+  private historyObs = this.historySource.asObservable();
 
   constructor(private http: HttpClient) {
   }
@@ -22,5 +21,9 @@ export class HistoryService {
 
   public refreshHistory(): void {
     this.historySource.next();
+  }
+
+  public listenHistoryEvents(): Observable<string> {
+    return this.historyObs;
   }
 }

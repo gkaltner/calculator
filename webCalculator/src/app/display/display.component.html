@@ -1,9 +1,9 @@
 <div class="display-container">
-  <div class="display-values">
-    <div *ngIf="!this.action">{{currentValue}}</div>
-    <div *ngIf="this.action == 'ADD'"><fa-icon [icon]="faPlus"></fa-icon></div>
-    <div *ngIf="this.action == 'SUBTRACT'"><fa-icon [icon]="faMinus"></fa-icon></div>
-    <div *ngIf="this.action == 'MULTIPLY'"><fa-icon [icon]="faTimes"></fa-icon></div>
-    <div *ngIf="this.action == 'DIVIDE'"><fa-icon [icon]="faDivide"></fa-icon></div>
+  <div class="display-form">
+    <form [formGroup]="displayForm" (ngSubmit)="onSubmit()" novalidate autocomplete="off">
+      <mat-form-field class="display-field">
+        <input matInput type="text" formControlName="expression">
+      </mat-form-field>
+    </form>
   </div>
 </div>

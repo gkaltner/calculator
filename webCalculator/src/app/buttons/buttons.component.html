@@ -9,7 +9,7 @@
     <button mat-fab color="primary" (click)="addButtonValue('9')" [disabled]="disabled">9</button>
   </mat-grid-tile>
   <mat-grid-tile>
-    <button mat-fab color="accent" (click)="addButtonValue('MULTIPLY')" [disabled]="disabled">
+    <button mat-fab color="accent" (click)="addButtonValue('*')" [disabled]="disabled">
       <fa-icon [icon]="faTimes"></fa-icon>
     </button>
   </mat-grid-tile>
@@ -20,10 +20,10 @@
     <button mat-fab color="primary" (click)="addButtonValue('5')" [disabled]="disabled">5</button>
   </mat-grid-tile>
   <mat-grid-tile>
-    <button mat-fab color="primary" (click)="addButtonValue('3')" [disabled]="disabled">3</button>
+    <button mat-fab color="primary" (click)="addButtonValue('6')" [disabled]="disabled">6</button>
   </mat-grid-tile>
   <mat-grid-tile>
-    <button mat-fab color="accent" (click)="addButtonValue('DIVIDE')" [disabled]="disabled">
+    <button mat-fab color="accent" (click)="addButtonValue('/')" [disabled]="disabled">
       <fa-icon [icon]="faDivide"></fa-icon>
     </button>
   </mat-grid-tile>
@@ -37,7 +37,7 @@
     <button mat-fab color="primary" (click)="addButtonValue('3')" [disabled]="disabled">3</button>
   </mat-grid-tile>
   <mat-grid-tile>
-    <button mat-fab color="accent" (click)="addButtonValue('SUBTRACT')" [disabled]="disabled">
+    <button mat-fab color="accent" (click)="addButtonValue('-')" [disabled]="disabled">
       <fa-icon [icon]="faMinus"></fa-icon>
     </button>
   </mat-grid-tile>
@@ -45,15 +45,15 @@
     <button mat-fab color="primary" (click)="addButtonValue('0')" [disabled]="disabled">0</button>
   </mat-grid-tile>
   <mat-grid-tile>
-    <button mat-fab color="warn" (click)="clear()" [disabled]="disabled">C</button>
+    <button type="button" mat-fab color="warn" (click)="clear()" [disabled]="disabled">C</button>
   </mat-grid-tile>
   <mat-grid-tile>
-    <button mat-fab color="warn" (click)="submit()" [disabled]="disabled">
+    <button type="submit" mat-fab color="warn" (click)="submit()" [disabled]="disabled">
       <fa-icon [icon]="faEquals"></fa-icon>
     </button>
   </mat-grid-tile>
   <mat-grid-tile>
-    <button mat-fab color="accent" (click)="addButtonValue('ADD')" [disabled]="disabled">
+    <button mat-fab color="accent" (click)="addButtonValue('+')" [disabled]="disabled">
       <fa-icon [icon]="faPlus"></fa-icon>
     </button>
   </mat-grid-tile>
